@@ -1,23 +1,19 @@
-# Use uma imagem Node.js como base
+# Etapa 1: Usar uma imagem base do Node.js
 FROM node:18
 
 # Configuração do diretório de trabalho
 WORKDIR /app
 
-# Copie o arquivo de configuração principal
+# Copiar os arquivos principais para o contêiner
 COPY package.json yarn.lock lerna.json ./
 
-# Instale as dependências do workspace
+# Instalar dependências no nível do workspace
 RUN yarn install
-
-# Copie todo o conteúdo dos aplicativos
+# Copiar o restante do projeto para o contêiner
 COPY . .
 
-# Compile os aplicativos (se necessário)
-RUN yarn build
-
-# Exponha as portas dos aplicativos
+# Expor as portas para os dois aplicativos
 EXPOSE 3001 3002
 
-# Comando para iniciar ambos os aplicativos
+# Comando para iniciar os aplicativos simultaneamente
 CMD ["yarn", "start"]
