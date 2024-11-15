@@ -1,0 +1,16 @@
+FROM node:18-alpine
+
+# Copiar arquivos de dependências para instalação
+COPY package.json yarn.lock ./
+
+# Instalar todas as dependências (incluindo devDependencies)
+RUN yarn install --frozen-lockfile
+
+# Copiar o restante do código
+COPY . .
+
+# Expor a porta usada pelo Webpack Dev Server
+EXPOSE 3002
+
+# Comando para iniciar o servidor
+CMD ["yarn", "start"]

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app1:
+    build:
+      context: ./app1
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001" # Mapeia a porta 3001 do container para o host
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+      - PUBLIC_PATH=http://localhost:3001/
+  
+  app2:
+    build:
+      context: ./app2
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002" # Mapeia a porta 3002 do container para o host
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+      - PUBLIC_PATH=http://localhost:3002/
+
+networks:
+  app-network:
+    driver: bridge

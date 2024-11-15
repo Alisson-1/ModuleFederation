@@ -8,7 +8,7 @@ const App = () => {
       textAlign:"center",
       backgroundColor:"cyan"
     }}>
-      <h1 >App 2</h1>
+      <h1 >App 3</h1>
     </div>
   )
 }
