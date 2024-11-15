@@ -8,6 +8,7 @@ module.exports = {
   devServer: {
     static: path.join(__dirname, 'dist'),
     port: 3002,
+    disableHostCheck: true,
   },
   output: {
     publicPath: 'auto',
