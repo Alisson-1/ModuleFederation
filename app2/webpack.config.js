@@ -2,16 +2,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const path = require('path');
 
-module.exports = {
+module.exports = (_, args) => ({
   entry: './src/index',
-  mode: 'development',
+  mode: args.mode ?? "development",
   devServer: {
     static: path.join(__dirname, 'dist'),
     port: 3002,
     allowedHosts: 'all',
   },
   output: {
-    publicPath: 'auto',
+    publicPath: args.mode == "production" ? "https://modulefederation.onrender.com/" :  "http://localhost:3002/",
   },
   module: {
     rules: [
@@ -39,4 +39,4 @@ module.exports = {
       template: './public/index.html',
     }),
   ],
-};
+});

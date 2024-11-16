@@ -3,16 +3,16 @@ const {ModuleFederationPlugin} = require("webpack").container;
 const ExternalTemplateRemotesPlugin = require("external-remotes-plugin");
 const path = require("path");
 
-module.exports = {
+module.exports = (_, args) => ({
   entry: "./src/index",
-  mode: "development",
+  mode: args.mode ?? "development",
   devServer: {
     static: path.join(__dirname, "dist"),
     port: 3001,
     allowedHosts: 'all',
   },
   output: {
-    publicPath: "auto",
+    publicPath: args.mode == "production" ? "https://modulefederation.onrender.com/" :  "http://localhost:3001/",
   },
   module: {
     rules: [
@@ -31,6 +31,7 @@ module.exports = {
       name: "app1",
       remotes: {
         app2: "app2@[app2Url]/remoteEntry.js",
+        app3: "app3@[app3Url]/remoteEntry.js",
       },
       shared: {react: {singleton: true}, "react-dom": {singleton: true}},
     }),
@@ -39,5 +40,5 @@ module.exports = {
       template: "./public/index.html",
     }),
   ],
-};
+});
 
